@@ -1,3 +1,4 @@
-include README.md
+include README.rst
 include LICENSE
-include requirements.txt
+include pyensembl/data/ensembl_genomes_endpoints.json
+include pyensembl/data/ensembl_rest_endpoints.json

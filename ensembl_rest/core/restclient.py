@@ -1,8 +1,11 @@
-# -*-coding: utf-8 -*-
-
 """
-Author          : Arijit Basu <sayanarijit@gmail.com>
-Website         : https://sayanarijit.github.io
+
+This file is part of pyEnsembl.
+    Derived from a file in the RESTEasy project by Arijit Basu <sayanarijit@gmail.com>.
+    Copyright (C) 2018, Andrés García
+
+    Any questions, comments or issues can be addressed to a.garcia230395@gmail.com.
+
 """
 
 from __future__ import absolute_import, unicode_literals
@@ -13,15 +16,17 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
 class HTTPError(Exception):
-    def __init__(self, status, content):
-        Exception.__init__(self, 'Server returned HTTP status code: %s\n%s' % (status, content))
+    def __init__(self, response):
+        self.response = response
+        Exception.__init__(self, 'Server returned HTTP status code: %s\nContent: %s' % (response.status, rest.json()))
 
 class InvalidResponseError(Exception):
-    def __init__(self, content):
-        Exception.__init__(self, 'Server returned incompatible response:\n'+content)
+    def __init__(self, response):
+        self.response = response
+        Exception.__init__(self, 'Server returned incompatible response:\n', response.json())
 
 
-class RESTEasy(object):
+class RESTClient:
     """
     REST session creator
     """
@@ -64,6 +69,8 @@ class APIEndpoint(object):
         self.encoder = json.dumps
         self.decoder = json.loads
         self.debug = debug
+        self.last_response = None
+    # ---
 
     def route(self, *args):
         """
@@ -74,6 +81,7 @@ class APIEndpoint(object):
             session=self.session, timeout=self.timeout,
             encoder=self.encoder, decoder=self.decoder, debug=self.debug
         )
+    # ---
 
     def do(self, method, kwargs={}):
         """
@@ -90,15 +98,16 @@ class APIEndpoint(object):
         else:
             response = self.session.request(method, self.endpoint,
                     data=self.encoder(kwargs), timeout=self.timeout)
-
-        content = response.content.decode('latin1')
+            
+        content = response.content.decode('UTF-8')
         if response.status_code not in range(200,300):
-            raise HTTPError(response.status_code, content)
+            raise HTTPError(response)
 
         try:
             return self.decoder(content)
         except Exception:
-            raise InvalidResponseError(content)
+            raise InvalidResponseError(response)
+    # ---
 
     def get(self, **kwargs): return self.do('GET', kwargs)
     def post(self, **kwargs): return self.do('POST', kwargs)
