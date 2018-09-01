@@ -2,7 +2,7 @@ EnsemblRest
 ===========
 
 .. image:: https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg
-:target: https://saythanks.io/to/Ad115
+    :target: https://saythanks.io/to/Ad115
 
 An interface to the Ensembl REST APIs, a whole world of biological data
 at your fingertips.
@@ -40,15 +40,14 @@ API <http://rest.ensemblgenomes.org/>`__.
 If you want to use a method from the REST API, say:
 ``GET lookup/symbol/:species/:symbol``\ (http://rest.ensembl.org/documentation/info/symbol\_lookup)
 then the corresponding method on the class is called after the last
-string in the link to the documentation page, in this case,
-``symbol_lookup``.
+string in the link to the documentation page, in this case, ``symbol_lookup``.
 
 .. code-block:: python
 
     >>> help(client.symbol_lookup)
 
 
-.. code-block:: python
+::
 
     Help on method symbol_lookup in module pyensembl.core.base:
     
@@ -68,13 +67,13 @@ following way:
 .. code-block:: python
 
     >>> client.symbol_lookup(species='homo sapiens',
-                         symbol='TP53')
+                             symbol='TP53')
     
     # Or like this...
     >>> client.symbol_lookup('homo sapiens', 'TP53')
 
 
-.. code-block:: python
+::
 
     {'source': 'ensembl_havana',
      'object_type': 'Gene',
@@ -101,7 +100,7 @@ Another common usage is to fetch sequences of known genes:
     >>> client.sequence_id('ENSG00000157764')
 
 
-.. code-block:: python
+::
 
     {'desc': 'chromosome:GRCh38:7:140719327:140924928:-1',
      'query': 'ENSG00000157764',
@@ -117,12 +116,12 @@ Or to map betweeen assemblies...
 .. code-block:: python
 
     >>> client.assembly_map(species='human',
-                        asm_one='GRCh37',
-                        region='X:1000000..1000100:1',
-                        asm_two='GRCh38')
+                            asm_one='GRCh37',
+                            region='X:1000000..1000100:1',
+                            asm_two='GRCh38')
 
 
-.. code-block:: python
+::
 
     {'mappings': [{'original': {'seq_region_name': 'X',
         'strand': 1,
@@ -141,11 +140,11 @@ Or to map betweeen assemblies...
 Meta
 ----
 
-**Author**: ``Ad115 <https://agargar.wordpress.com/>``\ \_ -
-``Github <https://github.com/Ad115/>``\ \_ – a.garcia230395@gmail.com
+**Author**: `Ad115 <https://agargar.wordpress.com/>`_ -
+`Github <https://github.com/Ad115/>`_ – a.garcia230395@gmail.com
 
 Distributed under the MIT license. See
-``LICENSE <https://github.com/Ad115/PyEnsembl/blob/master/LICENSE>``\ \_
+`LICENSE <https://github.com/Ad115/PyEnsembl/blob/master/LICENSE>`_
 for more information.
 
 Contributing
@@ -153,7 +152,7 @@ Contributing
 
 1. Check for open issues or open a fresh issue to start a discussion
    around a feature idea or a bug.
-2. Fork ``the repository <https://github.com/Ad115/EnsemblRest/>``\ \_
+2. Fork `the repository <https://github.com/Ad115/EnsemblRest/>`_
    on GitHub to start making your changes to a feature branch, derived
    from the **master** branch.
 3. Write a test which shows that the bug was fixed or that the feature
