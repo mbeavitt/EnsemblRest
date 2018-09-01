@@ -101,9 +101,9 @@ def _create_method(method_name, endpoint):
     # ---
     
     method.__doc__ = (
-        f"{endpoint['resource']}\n\n"
+        f"``{endpoint['resource']}``\n\n"
         f"{endpoint['description']}\n"
-        f"More info: {endpoint['documentation_link']}"
+        f"- More info: {endpoint['documentation_link']}"
     )
     method.__name__ = method_name
     

@@ -46,8 +46,8 @@ setup(
     # This is a one-line description or tagline of what your project does. This
     # corresponds to the "Summary" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#summary
-    description='An interface to the Ensembl REST APIs,' 
-                'a whole world of biological data at your fingertips.',  # Required
+    description='An interface to the Ensembl REST APIs, ' 
+                'biological data at your fingertips.',  # Required
 
     # This is an optional longer description of your project that represents
     # the body of text which users will see when they visit PyPI.
