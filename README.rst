@@ -4,7 +4,7 @@ EnsemblRest
 .. image:: https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg
     :target: https://saythanks.io/to/Ad115
 
-An interface to the Ensembl REST APIs, a whole world of biological data
+A Python interface to the Ensembl REST APIs, a whole world of biological data
 at your fingertips.
 
 The `Ensembl database <https://www.ensembl.org/index.html>`__ contains
@@ -13,6 +13,10 @@ access this data programatically through their REST API.
 
 The specific documentation on the Ensembl REST API is on `their
 website <https://rest.ensembl.org/>`__.
+
+This project uses code from `RESTEasy <https://github.com/rapidstack/RESTEasy>`__,
+which made my life much easier. Thanks!
+
 
 
 Installation
