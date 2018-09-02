@@ -1,18 +1,25 @@
-EnsemblRest: *A whole world of biological data at your fingertips.*
-===================================================================
+
+EnsemblRest
+===========
 
 .. image:: https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg
     :target: https://saythanks.io/to/Ad115
 
-A Python interface to the Ensembl REST APIs, and utilities to ease working with
-it, a whole world of biological data at your fingertips.
+A Python interface to the Ensembl REST APIs. A whole world of biological data 
+at your fingertips.
 
 The `Ensembl database <https://www.ensembl.org/index.html>`__ contains
 reference biological data on almost any organism. Now it is easy to
 access this data programatically through their REST API.
 
-The specific documentation on the Ensembl REST API is on `their
+The specific documentation on the Ensembl REST API endpoints is on `their
 website <https://rest.ensembl.org/>`__.
+
+This library also includes some utilities built on top of the APIs designed to
+ease working with them, including an 
+`AssemblyMapper <https://ad115.github.io/EnsemblRest/#ensembl_rest.AssemblyMapper>`__
+class that helps in the conversion between different genome assemblies.
+
 
 This project uses code from `RESTEasy <https://github.com/rapidstack/RESTEasy>`__,
 which made my life much easier. Thanks!
@@ -28,7 +35,7 @@ You can install from `PyPI <https://pypi.org/project/ensembl-rest/>`_::
 
 
 Examples
---------
+========
 
 The library exports two main classes: ``ensembl_rest.EnsemblClient`` and
 ``ensembl_rest.EnsemblGenomesClient`` that point respectively to the `main
@@ -170,7 +177,7 @@ transform repeatedly betweeen assemblies.::
         
         
 Meta
-----
+====
 
 **Author**: `Ad115 <https://agargar.wordpress.com/>`_ -
 `Github <https://github.com/Ad115/>`_ – a.garcia230395@gmail.com
@@ -180,7 +187,7 @@ Distributed under the MIT license. See
 for more information.
 
 Contributing
-------------
+============
 
 1. Check for open issues or open a fresh issue to start a discussion
    around a feature idea or a bug.
