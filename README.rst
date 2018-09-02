@@ -22,7 +22,7 @@ which made my life much easier. Thanks!
 Installation
 ------------
 
-You can install from PyPI::
+You can install from `PyPI <https://pypi.org/project/ensembl-rest/>`_::
 
     $ pip install ensembl_rest
 
