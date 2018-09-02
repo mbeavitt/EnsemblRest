@@ -1,11 +1,11 @@
-EnsemblRest
-===========
+EnsemblRest: A whole world of biological data at your fingertips.
+=================================================================
 
 .. image:: https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg
     :target: https://saythanks.io/to/Ad115
 
-A Python interface to the Ensembl REST APIs, a whole world of biological data
-at your fingertips.
+A Python interface to the Ensembl REST APIs, and utilities to ease working with
+it, a whole world of biological data at your fingertips.
 
 The `Ensembl database <https://www.ensembl.org/index.html>`__ contains
 reference biological data on almost any organism. Now it is easy to
@@ -42,7 +42,8 @@ API <http://rest.ensemblgenomes.org/>`__.
     >>> client = ensembl_rest.EnsemblClient()
 
 If you want to use a method from the REST API, say:
-``GET lookup/symbol/:species/:symbol``\ (http://rest.ensembl.org/documentation/info/symbol\_lookup)
+``GET lookup/symbol/:species/:symbol`` 
+(http://rest.ensembl.org/documentation/info/symbol\_lookup)
 then the corresponding method on the class is called after the last
 string in the link to the documentation page, in this case, ``symbol_lookup``.
 
@@ -123,7 +124,17 @@ Or to map betweeen assemblies...
                             asm_one='GRCh37',
                             region='X:1000000..1000100:1',
                             asm_two='GRCh38')
-
+    
+    
+    # Or...
+    >>> region_str = ensembl_rest.region_str(chom='X',
+                                             start=1000000,
+                                             end=1000100)
+    
+    >>> client.assembly_map(species='human',
+                            asm_one='GRCh37',
+                            region=region_str,
+                            asm_two='GRCh38')
 
 ::
 
@@ -141,6 +152,23 @@ Or to map betweeen assemblies...
         'assembly': 'GRCh38'}}]}
 
 
+The above problem (mapping from one assembly to another) is so frequent that 
+the library provides a specialized class ``AssemblyMapper`` to efficiently
+mapping large amounts of regions between assemblies. This class avoids the 
+time-consuming task of making a web request every time a mapping is needed by 
+fetching the mapping of the whole assembly right from the instantiation. This 
+is a time-consuming operation by itself, but it pays off when one has to 
+transform repeatedly betweeen assemblies.::
+
+
+        >>> mapper = ensembl_rest.AssemblyMapper(from_assembly='GRCh37'
+        ...                                      to_assembly='GRCh38')
+        
+        >>> mapper.map(chrom='1', pos=1000000)
+        1064620
+
+        
+        
 Meta
 ----
 

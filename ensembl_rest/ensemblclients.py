@@ -9,7 +9,7 @@ This file is part of pyEnsembl.
 
 import json
 from importlib_resources import open_text, path
-from .core.base import build_client_class
+from .core import build_client_class
 
 # Import APIs information
 with open_text('ensembl_rest.data','ensembl_rest_endpoints.json') as f:

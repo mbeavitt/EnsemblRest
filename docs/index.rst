@@ -7,9 +7,16 @@
 .. include:: ../README.rst
 
 
+------
+
 
 API Documentation
 =================
+
+.. autofunction:: ensembl_rest.region_str
+
+.. autoclass:: ensembl_rest.AssemblyMapper
+    :members:
    
 .. autoclass:: ensembl_rest.EnsemblClient
     :members:
