@@ -1,5 +1,5 @@
-EnsemblRest: A whole world of biological data at your fingertips.
-=================================================================
+EnsemblRest: *A whole world of biological data at your fingertips.*
+===================================================================
 
 .. image:: https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg
     :target: https://saythanks.io/to/Ad115
@@ -54,13 +54,13 @@ string in the link to the documentation page, in this case, ``symbol_lookup``.
 
 ::
 
-    Help on method symbol_lookup in module pyensembl.core.base:
+    Help on method symbol_lookup in module ensembl_rest.core.baseclient:
     
-    symbol_lookup(*args, **kwargs) method of pyensembl.core.base.Ensembl instance
-        GET lookup/symbol/:species/:symbol
+    symbol_lookup(*args, **kwargs) method of ensembl_rest.core.baseclient.EnsemblClient instance
+        ``GET lookup/symbol/:species/:symbol``
         
         Find the species and database for a symbol in a linked external database
-        More info: https://rest.ensembl.org/documentation/info/symbol_lookup
+        - More info: https://rest.ensembl.org/documentation/info/symbol_lookup
     
 
 
