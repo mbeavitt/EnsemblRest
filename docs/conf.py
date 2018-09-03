@@ -57,7 +57,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'EnsemblRest'
+project = 'Ensembl-REST'
 copyright = '2018, Andrés García (Ad115)'
 author = 'Andrés García (Ad115)'
 
@@ -106,7 +106,7 @@ html_sidebars = {
 }
 html_theme_options = {
     'github_user': 'Ad115',
-    'github_repo': 'ICGC-data-parser',
+    'github_repo': 'EnsemblRest'
 }
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -125,12 +125,12 @@ html_static_path = ['_static']
 #
 # This is required for the alabaster theme
 # refs: http://alabaster.readthedocs.io/en/latest/installation.html#sidebars
-html_sidebars = {
-    '**': [
-        'relations.html',  # needs 'show_related': True theme option to display
-        'searchbox.html',
-    ]
-}
+#html_sidebars = {
+#    '**': [
+#        'relations.html',  # needs 'show_related': True theme option to display
+#        'searchbox.html',
+#    ]
+#}
 
 
 # -- Options for HTMLHelp output ------------------------------------------

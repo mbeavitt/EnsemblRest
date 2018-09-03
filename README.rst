@@ -1,6 +1,6 @@
 
-EnsemblRest
-===========
+Ensembl-REST
+============
 
 .. image:: https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg
     :target: https://saythanks.io/to/Ad115
@@ -133,16 +133,6 @@ the optional ones for each endpoint):
          ...
          ...
          ...
-         'db_type': 'core',
-        'id': 'ENSP00000439902',
-        'start': 32316461},
-       'start': 32315480}],
-     'version': 14,
-     'species': 'human',
-     'assembly_name': 'GRCh38',
-     'display_name': 'BRCA2',
-     'description': 'BRCA2, DNA repair associated [Source:HGNC Symbol;Acc:HGNC:1101]',
-     'end': 32400266,
      'biotype': 'protein_coding',
      'start': 32315474}
          
@@ -167,17 +157,11 @@ In that way, you can pass the parameters for the POST endpoints, such as:
             "species": "homo_sapiens",
             "description": "BRCA2, DNA repair associated [Source:HGNC Symbol;Acc:HGNC:1101]",
             ...
-            ...
-            ...
         },
         "TP53": {
             ...
-            ...
-            ...
         }.
         "BRAF": {
-            ...
-            ...
             ...
             "strand": -1,
             "id": "ENSG00000157764",
