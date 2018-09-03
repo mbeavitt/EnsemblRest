@@ -6,7 +6,7 @@ SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 SPHINXPROJ    = EnsemblRest
 SOURCEDIR     = .
-BUILDDIR      = ../../docs
+BUILDDIR      = _build
 
 # Put it first so that "make" without argument is like "make help".
 help:
