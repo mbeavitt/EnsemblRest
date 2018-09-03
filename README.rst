@@ -247,7 +247,7 @@ Meta
 `Github <https://github.com/Ad115/>`_ – a.garcia230395@gmail.com
 
 **Project pages**: 
-`Docs <https://ad115.github.io/EnsemblRest/>`__ - `@GitHub <https://github.com/Ad115/EnsemblRest/>`__ - `@PyPI <https://pypi.org/project/ensembl-rest/>`__
+`Docs <https://ensemblrest.readthedocs.io>`__ - `@GitHub <https://github.com/Ad115/EnsemblRest/>`__ - `@PyPI <https://pypi.org/project/ensembl-rest/>`__
 
 Distributed under the MIT license. See
 `LICENSE <https://github.com/Ad115/EnsemblRest/blob/master/LICENSE>`_
