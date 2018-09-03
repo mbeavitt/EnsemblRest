@@ -18,7 +18,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 class HTTPError(Exception):
     def __init__(self, response):
         self.response = response
-        Exception.__init__(self, 'Server returned HTTP status code: %s\nContent: %s' % (response.status, rest.json()))
+        Exception.__init__(self, 'Server returned HTTP status code: %s\nContent: %s' % (response.status_code, response.json()))
 
 class InvalidResponseError(Exception):
     def __init__(self, response):

@@ -63,13 +63,24 @@ class BaseEnsemblRESTClient:
         parts = route.split('/')
         # Then replace the semicolons with format strings
         parts = ['{' + s[1:] + '}' if s.startswith(':') else s for s in parts]
+        
         # Then map the keyword arguments
         parts = [self._format_if_possible(s, **kwargs) for s in parts]
+        
         # Finally, map the positional arguments
         args_iter = iter(args)
-        parts = [next(args_iter) if s.startswith('{') else s for s in parts]
+        mapped_parts = []
+        for s in parts:
+            if s.startswith('{'):
+                try:
+                    mapped_parts.append(next(args_iter))
+                except StopIteration:
+                    # Parameter not provided, skip in case it is optional
+                    pass
+            else:
+                mapped_parts.append(s)
         
-        return parts
+        return mapped_parts
     # ---
            
     def _format_if_possible(self, format_string, **kwargs):

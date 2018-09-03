@@ -21,7 +21,8 @@ import os
 import sys
 from codecs import open
 
-sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath('../ensembl_rest'))
  
 # Get the version from the VERSION file
 package = os.path.abspath('..')
@@ -94,6 +95,19 @@ todo_include_todos = False
 # a list of builtin themes.
 #
 html_theme = 'alabaster'
+html_sidebars = {
+    '**': [
+        'about.html',
+        'localtoc.html',
+        'relations.html',
+        'searchbox.html',
+        'donate.html',
+    ]
+}
+html_theme_options = {
+    'github_user': 'Ad115',
+    'github_repo': 'ICGC-data-parser',
+}
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
