@@ -152,4 +152,6 @@ setup(
         'Documentation': 'https://ad115.github.io/EnsemblRest/',
         'Author': 'https://agargar.wordpress.com/'
     },
+    
+    package_data={'ensembl_rest': ['data/*.json']}
 )
