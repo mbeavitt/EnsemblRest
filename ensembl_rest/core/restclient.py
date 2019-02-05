@@ -11,6 +11,7 @@ This file is part of pyEnsembl.
 from __future__ import absolute_import, unicode_literals
 import json
 import requests
+from simplejson.decoder import JSONDecodeError
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
@@ -18,12 +19,18 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 class HTTPError(Exception):
     def __init__(self, response):
         self.response = response
-        Exception.__init__(self, 'Server returned HTTP status code: %s\nContent: %s' % (response.status_code, response.json()))
+        try:
+            Exception.__init__(self, 'Server returned HTTP status code: %s\nContent: %s' % (response.status_code, response.json()))
+        except JSONDecodeError:
+            Exception.__init__(self, 'Server returned HTTP status code: %s\nContent: %s' % (response.status_code, response.text))
 
 class InvalidResponseError(Exception):
     def __init__(self, response):
         self.response = response
-        Exception.__init__(self, 'Server returned incompatible response:\n', response.json())
+        try:
+            Exception.__init__(self, 'Server returned incompatible response:\n', response.json())
+        except JSONDecodeError:
+            Exception.__init__(self, 'Server returned incompatible response:\n', response.text)
 
 
 class RESTClient:
