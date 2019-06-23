@@ -86,14 +86,42 @@ corresponding method name is ``symbol_lookup``.
 
 ::
 
-    Help on method symbol_lookup in module ensembl_rest.core.baseclient:
-    
-    symbol_lookup(*args, **kwargs) method of ensembl_rest.core.baseclient.EnsemblClient instance
-        ``GET lookup/symbol/:species/:symbol``
+    Help on function symbol_lookup in module ensembl_rest:
+
+    symbol_lookup(*args, **kwargs)
+            Lookup ``GET lookup/symbol/:species/:symbol``
         
         Find the species and database for a symbol in a linked external database
-        - More info: https://rest.ensembl.org/documentation/info/symbol_lookup
-    
+        
+        
+        **Parameters**
+        
+        - Required:
+                + **Name**:  species
+                + *Type*:  String
+                + *Description*:  Species name/alias
+                + *Default*:  -
+                + *Example Values*:  homo_sapiens, human
+        ...
+        ...
+        
+        - Optional:
+        
+                + **Name**:  expand
+                + *Type*:  Boolean(0,1)
+                + *Description*:  Expands the search to include any connected features. e.g. If the object is a gene, its transcripts, translations and exons will be returned as well.
+        ...
+        ...
+        
+        **Resource info**
+        
+        - **Methods**:  GET
+        - **Response formats**: json, xml, jsonp
+        
+        
+        **More info**
+        
+        https://rest.ensembl.org/documentation/info/symbol_lookup
 
 
 We can see from the resource string ``GET lookup/symbol/:species/:symbol`` that

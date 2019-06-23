@@ -154,7 +154,7 @@ setup(
     # what's used to render the link text on PyPI.
     project_urls={  # Optional
         'Say Thanks!': 'https://saythanks.io/to/Ad115',
-        'Documentation': 'https://ad115.github.io/EnsemblRest/',
+        'Documentation': 'https://ensemblrest.readthedocs.io',
         'Author': 'https://agargar.wordpress.com/'
     },
     

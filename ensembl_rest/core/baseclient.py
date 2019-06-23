@@ -8,6 +8,7 @@ This file is part of pyEnsembl.
 """
 
 from .restclient import RESTClient, HTTPError
+import pprint
 
 
 class BaseEnsemblRESTClient:
@@ -104,11 +105,27 @@ class BaseEnsemblRESTClient:
 ##  | | | | |
 ##  v v v v v
 
-def _endpoint_docstring(endpoint):
+def _format_parameters_docstring(parameters):
+    fields = 'Name,Type,Description,Default,Example Values'.split(',')
+
     return (
-        f"``{endpoint['resource']}``\n\n"
-        f"{endpoint['description']}\n"
-        f"- More info: {endpoint['documentation_link']}"
+        '\n\n'.join(
+            '\n'.join(f'\t+ *{"*"+field+"*" if "Name" in field else field}*:  {parameter[field]}' for field in fields)
+                for parameter in parameters)
+    )
+
+def _endpoint_docstring(endpoint):
+    resource_info = '\n'.join(f'- **{name}**:\t{values}' for name, values in endpoint['resource_info'].items())
+    return (
+        f"{endpoint['category']} ``{endpoint['resource_string']}``\n\n"
+        f"{endpoint['description']}\n\n\n"
+        f"**Parameters**\n\n"
+        f"- Required:\n{_format_parameters_docstring(endpoint['parameters']['required'])}\n\n"
+        f"- Optional:\n{_format_parameters_docstring(endpoint['parameters']['optional'])}\n\n\n"
+        f"**Resource info**\n\n"
+        f"{resource_info}\n\n\n"
+        f"**More info**\n\n"
+        f"{endpoint['documentation_url']}\n\n"
     )
 # ---
 
@@ -116,7 +133,7 @@ def _create_method(method_name, endpoint):
     """Create a class method"""
     
     def method(self, *args, **kwargs):
-        return self.make_request(endpoint['resource'], *args, **kwargs)
+        return self.make_request(endpoint['resource_string'], *args, **kwargs)
     # ---
     
     method.__doc__ = _endpoint_docstring(endpoint)
@@ -125,16 +142,15 @@ def _create_method(method_name, endpoint):
     return method
 # ---
 
-def build_client_class(name, api_table, doc=''):
+def build_client_class(name, api_table, base_url, doc=''):
     """Create a new class that implements the methods of the API."""
     # Create the class dictionary
     class_dict = {'__doc__': doc,
-                  'api_version': api_table['api_version'],
-                  'base_url': api_table['base_url']}
+                  'base_url': base_url}
     
     # Create the class methods
-    methods = {ep_name : _create_method(ep_name, endpoint) 
-               for ep_name, endpoint in api_table['endpoints'].items()}
+    methods = {endpoint['name'] : _create_method(endpoint['name'], endpoint) 
+               for endpoint in api_table}
     
     class_dict.update(methods)
     

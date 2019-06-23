@@ -17,7 +17,10 @@ with open_text('ensembl_rest.data','ensembl_rest_endpoints.json') as f:
 
 
 # Now create the main classes 
+ensembl_rest_url = 'https://rest.ensembl.org'
+
 EnsemblClient = build_client_class(
                 'EnsemblClient', 
                 _api_table,
-                doc=f'A client for the Ensembl REST API ({_api_table["base_url"]})')
+                base_url=ensembl_rest_url,
+                doc=f'A client for the Ensembl REST API ({ensembl_rest_url})')
