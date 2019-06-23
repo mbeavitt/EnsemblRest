@@ -306,7 +306,7 @@ handle errors in the requests. An example of it's utility is when using the
 ``GET genetree/member/symbol/:species/:symbol`` endpoint to query for gene trees 
 in order to find ortholog and paralog proteins and genes. This endpoint returns 
 an HTTP error when a gene tree is not found with code 400 and the error message 
-``Unable to find given object``. We can use this information to detect the error 
+``Lookup found nothing``. We can use this information to detect the error 
 and handle it, or to simply ignore it if we expected it:
 
 
