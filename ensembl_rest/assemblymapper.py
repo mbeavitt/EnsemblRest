@@ -1,6 +1,6 @@
 from intervaltree import IntervalTree
 
-from .ensemblclients import EnsemblClient
+from .ensemblclient import EnsemblClient
 from .utils import region_str
 
 

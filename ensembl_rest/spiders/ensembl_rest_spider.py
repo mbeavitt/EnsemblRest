@@ -5,7 +5,6 @@ import json
 
 
 ensembl_rest_url = 'https://rest.ensembl.org/'
-ensembl_genomes_url = 'http://rest.ensemblgenomes.org'
 
 
 
@@ -15,10 +14,7 @@ class EnsemblRESTSpider(scrapy.Spider):
     """
     name = "ensembl_rest"
     
-    start_urls = [
-        ensembl_rest_url,
-        ensembl_genomes_url
-    ]
+    start_urls = [ensembl_rest_url]
     
     def parse(self, response):
         """Extract the API data from the webpage.
@@ -38,10 +34,7 @@ class EnsemblRESTSpider(scrapy.Spider):
         }
             
         # --- Data has been retrieved. Prepare for output
-        output_selector = {
-            ensembl_rest_url    : 'ensembl_rest_endpoints.json',
-            ensembl_genomes_url : 'ensembl_genomes_endpoints.json'
-        }
+        output_selector = {ensembl_rest_url : 'ensembl_rest_endpoints.json'}
         
         with open(output_selector[response.url], 'w') as outf:
             json.dump(api_data, outf, indent=2)

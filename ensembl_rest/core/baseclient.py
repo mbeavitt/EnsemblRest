@@ -104,6 +104,14 @@ class BaseEnsemblRESTClient:
 ##  | | | | |
 ##  v v v v v
 
+def _endpoint_docstring(endpoint):
+    return (
+        f"``{endpoint['resource']}``\n\n"
+        f"{endpoint['description']}\n"
+        f"- More info: {endpoint['documentation_link']}"
+    )
+# ---
+
 def _create_method(method_name, endpoint):
     """Create a class method"""
     
@@ -111,11 +119,7 @@ def _create_method(method_name, endpoint):
         return self.make_request(endpoint['resource'], *args, **kwargs)
     # ---
     
-    method.__doc__ = (
-        f"``{endpoint['resource']}``\n\n"
-        f"{endpoint['description']}\n"
-        f"- More info: {endpoint['documentation_link']}"
-    )
+    method.__doc__ = _endpoint_docstring(endpoint)
     method.__name__ = method_name
     
     return method
@@ -125,7 +129,8 @@ def build_client_class(name, api_table, doc=''):
     """Create a new class that implements the methods of the API."""
     # Create the class dictionary
     class_dict = {'__doc__': doc,
-                  'base_url': api_table['base_url']}    
+                  'api_version': api_table['api_version'],
+                  'base_url': api_table['base_url']}
     
     # Create the class methods
     methods = {ep_name : _create_method(ep_name, endpoint) 
