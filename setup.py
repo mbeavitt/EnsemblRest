@@ -124,7 +124,12 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['importlib_resources', 'requests', 'intervaltree'],  # Optional
+    install_requires=[
+        'importlib_resources', 
+        'requests', 
+        'simplejson', # Required to handle json parsing errors by the requests module.
+        # ^^^^^^^^^ Yeah, I think it's ugly too D:
+        'intervaltree'],
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"

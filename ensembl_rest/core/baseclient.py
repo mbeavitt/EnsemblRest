@@ -20,7 +20,7 @@ class BaseEnsemblRESTClient:
         self.rest_client = RESTClient(base_url)
     # ----
         
-    def make_request(self, resource, *args, params=None, **kwargs):
+    def make_request(self, resource, *args, params=None, headers=None, **kwargs):
         "Follow the route mapping the arguments to the correct place."
         # Assemble the request
         request_type, route_template = resource.split(' ')
@@ -31,7 +31,7 @@ class BaseEnsemblRESTClient:
         # Perform the request
         while True:
             try:
-                return endpoint.do(request_type, params)
+                return endpoint.do(request_type, params, headers=headers)
 
             # Handle rate limit
             except HTTPError as e:

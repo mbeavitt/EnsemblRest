@@ -38,27 +38,51 @@ You can install from `PyPI <https://pypi.org/project/ensembl-rest/>`_::
 Examples
 ========
 
-The library exports two main classes: ``ensembl_rest.EnsemblClient`` and
-``ensembl_rest.EnsemblGenomesClient`` that point respectively to the `main
-REST API <http://rest.ensembl.org/>`__ and to the `Ensembl Genomes REST
-API <http://rest.ensemblgenomes.org/>`__.
+The library exports methods that point to each endpoint of the
+API, such as:
 
 .. code-block:: python
 
     >>> import ensembl_rest
-    
-    >>> client = ensembl_rest.EnsemblClient()
 
-If you want to use a method from the REST API, say:
-``GET lookup/symbol/:species/:symbol`` 
-(http://rest.ensembl.org/documentation/info/symbol\_lookup) then the 
-corresponding method on the class is called after the last string in the link 
-to the documentation page, in this case, ``symbol_lookup``.
+    >>> ensembl_rest.symbol_lookup(
+            species='homo sapiens',
+            symbol='BRCA2'
+        )
+
+::
+
+   { 'species': 'human',
+     'object_type': 'Gene',
+     'description': 'BRCA2, DNA repair associated [Source:HGNC Symbol;Acc:HGNC:1101]',
+     'assembly_name': 'GRCh38',
+     'end': 32400266,
+     ...
+     ...
+     ...
+     'seq_region_name': '13',
+     'strand': 1,
+     'id': 'ENSG00000139618',
+     'start': 32315474}
+
+All the endpoints are listed on the `API website <http://rest.ensembl.org/>`__. 
+A quick lookup of the methods can be obtained by calling help on the module:
 
 .. code-block:: python
 
-    >>> help(client.symbol_lookup)
+    >>> help(ensembl_rest)
 
+
+If you want to use an endpoint from the ones enlisted in the `API website 
+<http://rest.ensembl.org/>`__, say ``GET lookup/symbol/:species/:symbol`` , 
+then the name of the corresponding method is in the endpoint documentation URL, 
+in this case, the documentation links to 
+http://rest.ensembl.org/documentation/info/symbol\_lookup so the 
+corresponding method name is ``symbol_lookup``.
+
+.. code-block:: python
+
+    >>> help(ensembl_rest.symbol_lookup)
 
 ::
 
@@ -78,51 +102,39 @@ method in the following way:
 
 .. code-block:: python
 
-    >>> client.symbol_lookup(species='homo sapiens',
-                             symbol='TP53')
+    >>> ensembl_rest.symbol_lookup(
+            species='homo sapiens',
+            symbol='TP53'
+        )
     
     # Or like this...
-    >>> client.symbol_lookup('homo sapiens', 'TP53')
-
+    >>> ensembl_rest.symbol_lookup('homo sapiens', 'TP53')
 
 ::
 
    {'source': 'ensembl_havana',
      'object_type': 'Gene',
      'logic_name': 'ensembl_havana_gene',
-     'version': 14,
-     'species': 'human',
-     'description': 'BRCA2, DNA repair associated [Source:HGNC Symbol;Acc:HGNC:1101]',
-     'display_name': 'BRCA2',
-     'assembly_name': 'GRCh38',
-     'biotype': 'protein_coding',
-     'end': 32400266,
-     'seq_region_name': '13',
-     'db_type': 'core',
-     'strand': 1,
-     'id': 'ENSG00000139618',
+    ...
+    ...
+    ...
      'start': 32315474}
 
-One can pass request parameters to modify the response with the ``params`` 
+One can provide optional parameters with the ``params`` 
 keyword (the specific parameters to pass depend on the specific endpoint, 
 the official endpoints documentation can be found `here 
-<http://rest.ensemblgenomes.org/>`__, the parameters to be passed this way are 
-the optional ones for each endpoint):
+<http://rest.ensembl.org/>`_)_:
 
 .. code-block:: python
 
-        >>> client.symbol_lookup('human', 'BRCA2', params={'expand':True})
+        # Fetch also exons, transcripts, etc...
+        >>> ensembl_rest.symbol_lookup('human', 'BRCA2', 
+                                       params={'expand':True})
 
 ::
 
-
     {'source': 'ensembl_havana',
-     'object_type': 'Gene',
-     'logic_name': 'ensembl_havana_gene',
      'seq_region_name': '13',
-     'db_type': 'core',
-     'strand': 1,
-     'id': 'ENSG00000139618',
      'Transcript': [{'source': 'ensembl_havana',
        'object_type': 'Transcript',
        'logic_name': 'ensembl_havana_transcript',
@@ -137,14 +149,15 @@ the optional ones for each endpoint):
      'start': 32315474}
          
 
-In that way, you can pass the parameters for the POST endpoints, such as:
+The parameters for the POST endpoints are also provided via the ``params`` 
+keyword  , such as in the next example:
 
 .. code-block:: python
 
-    >>> client.symbol_post(species='human',
-                           params={'symbols': ["BRCA2", 
-                                               "TP53", 
-                                               "BRAF" ]})
+    >>> ensembl_rest.symbol_post(species='human',
+                                 params={'symbols': ["BRCA2", 
+                                                     "TP53", 
+                                                     "BRAF" ]})
 
 ::
 
@@ -153,15 +166,16 @@ In that way, you can pass the parameters for the POST endpoints, such as:
             "source": "ensembl_havana",
             "object_type": "Gene",
             "logic_name": "ensembl_havana_gene",
-            "version": 14,
-            "species": "homo_sapiens",
             "description": "BRCA2, DNA repair associated [Source:HGNC Symbol;Acc:HGNC:1101]",
+            ...
             ...
         },
         "TP53": {
             ...
+            ...
         }.
         "BRAF": {
+            ...
             ...
             "strand": -1,
             "id": "ENSG00000157764",
@@ -173,7 +187,7 @@ Another common usage is to fetch sequences of known genes:
 
 .. code-block:: python
 
-    >>> client.sequence_id('ENSG00000157764')
+    >>> ensembl_rest.sequence_id('ENSG00000157764')
 
 
 ::
@@ -182,30 +196,49 @@ Another common usage is to fetch sequences of known genes:
      'query': 'ENSG00000157764',
      'version': 13,
      'id': 'ENSG00000157764',
-     'seq': 'TTCCCCCAATCCCCTCAGGCTCGGCTGCGCCCGGGGC...ACTGCTATAATAAAGATTGACTGCATGGAGAAGTCTTCA',
+     'seq': 'TTCCCCCAATCCCCTCAGGCTCGG...ATTGACTGCATGGAGAAGTCTTCA',
      'molecule': 'dna'}
 
-
-
-Or to map betweeen assemblies...
+if you want it in FASTA, you can modify the ``headers``:
 
 .. code-block:: python
 
-    >>> client.assembly_map(species='human',
-                            asm_one='GRCh37',
-                            region='X:1000000..1000100:1',
-                            asm_two='GRCh38')
+    >>> ensembl_rest.sequence_id(
+            'ENSG00000157764', 
+            headers={'content-type': 'text/x-fasta'})
+
+
+::
+
+    >ENSG00000157764.13 chromosome:GRCh38:7:140719327:140924928:-1
+    TTCCCCCAATCCCCTCAGGCTCGGCTGCGCCCGGGGCCGCGGGCCGGTACCTGAGGTGGC
+    CCAGGCGCCCTCCGCCCGCGGCGCCGCCCGGGCCGCTCCTCCCCGCGCCCCCCGCGCCCC
+    CCGCTCCTCCGCCTCCGCCTCCGCCTCCGCCTCCCCCAGCTCTCCGCCTCCCTTCCCCCT
+    ...
+
+Notice that, if left unchanged, the methods ask for data in dictionary (JSON) 
+format so that they are easy to use. If the response cannot be decoded as such,
+then it is returned as plain text, such as the above.
+
+You can also map betweeen assemblies...
+
+.. code-block:: python
+
+    >>> ensembl_rest.assembly_map(species='human',
+                                  asm_one='GRCh37',
+                                  region='X:1000000..1000100:1',
+                                  asm_two='GRCh38')
     
     
     # Or...
-    >>> region_str = ensembl_rest.region_str(chom='X',
+    >>> region_str = ensembl_rest.region_str(chrom='X',
                                              start=1000000,
                                              end=1000100)
     
-    >>> client.assembly_map(species='human',
-                            asm_one='GRCh37',
-                            region=region_str,
-                            asm_two='GRCh38')
+    >>> ensembl_rest.assembly_map(species='human',
+                                  asm_one='GRCh37',
+                                  region=region_str,
+                                  asm_two='GRCh38')
 
 ::
 
@@ -232,14 +265,79 @@ is a time-consuming operation by itself, but it pays off when one has to
 transform repeatedly betweeen assemblies.::
 
 
-        >>> mapper = ensembl_rest.AssemblyMapper(from_assembly='GRCh37'
-        ...                                      to_assembly='GRCh38')
+        >>> mapper = ensembl_rest.AssemblyMapper(
+                        species='human', 
+                        from_assembly='GRCh37',
+                        to_assembly='GRCh38'
+                    )
         
         >>> mapper.map(chrom='1', pos=1000000)
         1064620
 
+You can also find orthologs, paralogs and gene tree information, along with 
+variation data and basically everything `Ensembl <http://rest.ensembl.org/>`__ 
+has to offer.
+
+If you want to instantiate your own client, you can do it by using the 
+``ensembl_rest.EnsemblClient`` class, this class is the one that contains all 
+the endpoint methods.
+
+.. code-block:: python
+
+    >>> client = ensembl_rest.EnsemblClient()
+
+    >>> client.symbol_lookup('homo sapiens', 'TP53')
+
+
+::
+
+   {'source': 'ensembl_havana',
+     'object_type': 'Gene',
+     'logic_name': 'ensembl_havana_gene',
+     'version': 14,
+     'species': 'human',
+     ...
+     ...
+     ...}
         
-        
+
+Finally, the library exposes the class ``ensembl_rest.HTTPError`` that allows to 
+handle errors in the requests. An example of it's utility is when using the 
+``GET genetree/member/symbol/:species/:symbol`` endpoint to query for gene trees 
+in order to find ortholog and paralog proteins and genes. This endpoint returns 
+an HTTP error when a gene tree is not found with code 400 and the error message 
+``Unable to find given object``. We can use this information to detect the error 
+and handle it, or to simply ignore it if we expected it:
+
+
+.. code-block:: python
+
+    for gene in ['TP53', 'rare-new-gene', 'BRCA2']:
+        try:
+            gene_tree = ensembl_rest.genetree_member_symbol(
+                            species='human',
+                            symbol=gene,
+                            params={'prune_species': 'human'}
+                        )
+            # Assuming we have a function to extract the paralogs
+            paralogs = extract_paralogs(gene_tree['tree'])
+            print(paralogs)
+
+        # Handle the case when there's no gene tree
+        except ensembl_rest.HTTPError as err:
+            error_code = err.response.status_code
+            error_message = err.response.json()['error']
+            if (error_code == 400) \
+               and ('Lookup found nothing' in error_message):
+                # Skip the gene with no data
+                pass
+            else:
+                # The exception was caused by another problem
+                # Raise the exception again
+                raise
+
+
+
 Meta
 ====
 

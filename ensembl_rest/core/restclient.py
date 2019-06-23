@@ -90,7 +90,7 @@ class APIEndpoint(object):
         )
     # ---
 
-    def do(self, method, kwargs={}):
+    def do(self, method, params=None, **kwargs):
         """
         Do the HTTP request
         """
@@ -101,10 +101,12 @@ class APIEndpoint(object):
 
         if method == 'GET':
             response = self.session.get(self.endpoint,
-                    params=kwargs, timeout=self.timeout)
+                                        params=params,
+                                        timeout=self.timeout,
+                                        **kwargs)
         else:
             response = self.session.request(method, self.endpoint,
-                    data=self.encoder(kwargs), timeout=self.timeout)
+                    data=self.encoder(params), params=params, timeout=self.timeout, **kwargs)
             
         content = response.content.decode('UTF-8')
         if response.status_code not in range(200,300):
@@ -113,11 +115,11 @@ class APIEndpoint(object):
         try:
             return self.decoder(content)
         except Exception:
-            raise InvalidResponseError(response)
+            return content
     # ---
 
-    def get(self, **kwargs): return self.do('GET', kwargs)
-    def post(self, **kwargs): return self.do('POST', kwargs)
-    def put(self, **kwargs): return self.do('PUT', kwargs)
-    def patch(self, **kwargs): return self.do('PATCH', kwargs)
-    def delete(self, **kwargs): return self.do('DELETE', kwargs)
+    def get(self, **kwargs): return self.do('GET', **kwargs)
+    def post(self, **kwargs): return self.do('POST', **kwargs)
+    def put(self, **kwargs): return self.do('PUT', **kwargs)
+    def patch(self, **kwargs): return self.do('PATCH', **kwargs)
+    def delete(self, **kwargs): return self.do('DELETE', **kwargs)

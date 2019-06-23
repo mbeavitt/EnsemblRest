@@ -20,6 +20,3 @@ API Documentation
    
 .. autoclass:: ensembl_rest.EnsemblClient
     :members:
-
-.. autoclass:: ensembl_rest.EnsemblGenomesClient
-    :members:
