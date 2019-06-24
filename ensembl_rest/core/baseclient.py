@@ -106,13 +106,19 @@ class BaseEnsemblRESTClient:
 ##  v v v v v
 
 def _format_parameters_docstring(parameters):
-    fields = 'Name,Type,Description,Default,Example Values'.split(',')
+    fields = 'Type,Description,Default,Example Values'.split(',')
 
-    return (
-        '\n\n'.join(
-            '\n'.join(f'\t+ *{"*"+field+"*" if "Name" in field else field}*:  {parameter[field]}' for field in fields)
-                for parameter in parameters)
-    )
+    parameters_str = ''
+    for parameter in parameters:
+        parameters_str += f'  + *Name*: {parameter["Name"]}\n\n'
+        
+        for field in fields:
+            parameters_str += f'    * *{field}*: {parameter[field]}\n'
+
+        parameters_str += '\n\n'
+
+    return parameters_str
+# ---
 
 def _endpoint_docstring(endpoint):
     resource_info = '\n'.join(f'- **{name}**:\t{values}' for name, values in endpoint['resource_info'].items())
@@ -120,8 +126,8 @@ def _endpoint_docstring(endpoint):
         f"{endpoint['category']} ``{endpoint['resource_string']}``\n\n"
         f"{endpoint['description']}\n\n\n"
         f"**Parameters**\n\n"
-        f"- Required:\n{_format_parameters_docstring(endpoint['parameters']['required'])}\n\n"
-        f"- Optional:\n{_format_parameters_docstring(endpoint['parameters']['optional'])}\n\n\n"
+        f"- Required:\n\n{_format_parameters_docstring(endpoint['parameters']['required'])}"
+        f"- Optional:\n\n{_format_parameters_docstring(endpoint['parameters']['optional'])}"
         f"**Resource info**\n\n"
         f"{resource_info}\n\n\n"
         f"**More info**\n\n"
