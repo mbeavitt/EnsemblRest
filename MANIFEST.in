@@ -1,4 +1,5 @@
 include README.rst
 include LICENSE
+include VERSION
 include ensembl_rest/data/ensembl_genomes_endpoints.json
 include ensembl_rest/data/ensembl_rest_endpoints.json

@@ -13,10 +13,22 @@
 API Documentation
 =================
 
+Ensembl REST API
+----------------
+
+.. autoclass:: ensembl_rest.EnsemblClient
+    :members:
+
+
+AssemblyMapper
+--------------
+
 .. autofunction:: ensembl_rest.region_str
+
+
+region_str
+----------
 
 .. autoclass:: ensembl_rest.AssemblyMapper
     :members:
    
-.. autoclass:: ensembl_rest.EnsemblClient
-    :members:
