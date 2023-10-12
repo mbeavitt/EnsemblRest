@@ -8,7 +8,7 @@ This file is part of pyEnsemblRest.
 """
 
 import json
-from importlib_resources import open_text, path
+from importlib.resources import open_text, path
 from .core import build_client_class
 
 # Import API information
