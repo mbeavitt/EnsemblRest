@@ -2,9 +2,6 @@
 Ensembl-REST
 ============
 
-.. image:: https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg
-    :target: https://saythanks.io/to/Ad115
-
 A Python interface to the Ensembl REST APIs. A whole world of biological data 
 at your fingertips.
 
@@ -13,16 +10,14 @@ reference biological data on almost any organism. Now it is easy to
 access this data programatically through their REST API.
 
 The full list of endpoints for the Ensembl REST API endpoints along with 
-endpoint-specific documentation can be found on `their website 
-<https://rest.ensembl.org/>`__.
+endpoint-specific documentation can be found on `their website <https://rest.ensembl.org/>`__.
 
 This library also includes some utilities built on top of the APIs designed to
-ease working with them, including an `AssemblyMapper 
-<https://ad115.github.io/EnsemblRest/#ensembl_rest.AssemblyMapper>`__ class 
-that helps in the conversion between different genome assemblies.
+ease working with them, including an `AssemblyMapper <https://ad115.github.io/EnsemblRest/#ensembl_rest.AssemblyMapper>`__ 
+class that helps in the conversion between different genome assemblies.
 
 
-This project uses code from `RESTEasy <https://github.com/rapidstack/RESTEasy>`__,
+This project uses code from `RESTEasy <https://github.com/rapidstack/RESTEasy>`__
 which made my life much easier. Thanks!
 
 
@@ -30,7 +25,7 @@ which made my life much easier. Thanks!
 Installation
 ------------
 
-You can install from `PyPI <https://pypi.org/project/ensembl-rest/>`_::
+You can install from `PyPI <https://pypi.org/project/ensembl-rest/>`_ ::
 
     $ pip install ensembl_rest
 
@@ -73,8 +68,8 @@ A quick lookup of the methods can be obtained by calling help on the module:
     >>> help(ensembl_rest)
 
 
-If you want to use an endpoint from the ones enlisted in the `API website 
-<http://rest.ensembl.org/>`__, say ``GET lookup/symbol/:species/:symbol`` , 
+If you want to use an endpoint from the ones enlisted in the `API website <http://rest.ensembl.org/>`__, 
+say ``GET lookup/symbol/:species/:symbol`` , 
 then the name of the corresponding method is in the endpoint documentation URL, 
 in this case, the documentation links to 
 http://rest.ensembl.org/documentation/info/symbol\_lookup so the 
@@ -150,8 +145,7 @@ method in the following way:
 
 One can provide optional parameters with the ``params`` 
 keyword (the specific parameters to pass depend on the specific endpoint, 
-the official endpoints documentation can be found `here 
-<http://rest.ensembl.org/>`_)_:
+the official endpoints documentation can be found `here <http://rest.ensembl.org/>`_)_:
 
 .. code-block:: python
 
