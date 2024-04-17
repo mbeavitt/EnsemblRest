@@ -9,7 +9,7 @@ This file is part of pyEnsembl.
 
 from .restclient import RESTClient, HTTPError
 import pprint
-
+import sys
 
 class BaseEnsemblRESTClient:
     """Base client for an Ensembl REST API."""
